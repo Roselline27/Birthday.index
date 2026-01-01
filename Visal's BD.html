@@ -1,1 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy 21st Birthday!</title>
+
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: "Segoe UI", sans-serif;
+    text-align: center;
+    background: linear-gradient(160deg, #fde68a, #fbcfe8, #bfdbfe, #d6b28c);
+    color: #3f3f46;
+  }
+
+  /* START SCREEN */
+  .start-screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: inherit;
+    z-index: 10;
+  }
+
+  .start-btn {
+    padding: 20px 45px;
+    font-size: 22px;
+    border: none;
+    border-radius: 50px;
+    background: #f472b6;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  }
+
+  /* SHINY 21 */
+  h1 {
+    font-size: 100px;
+    margin-top: 40px;
+    font-weight: 900;
+    background: linear-gradient(45deg, #fcd34d, #f87171, #60a5fa, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes shine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+
+  .subtitle {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+
+  /* CAKE */
+  .cake-wrap {
+    position: relative;
+    margin-top: 20px;
+  }
+
+  .cake {
+    position: relative;
+    width: 320px;
+    height: 180px;
+    margin: auto;
+    background: linear-gradient(#fef0e6, #fbb6ce);
+    border-radius: 20px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+  }
+
+  /* top icing */
+  .cake::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(#fff, #fde2e4);
+    border-radius: 20px 20px 10px 10px;
+  }
+
+  .cake-name {
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    font-size: 26px;
+    font-weight: 600;
+    color: #831843;
+  }
+
+  /* realistic candle */
+  .candle {
+    position: absolute;
+    top: -65px;
+    left: 155px;
+    width: 12px;
+    height: 60px;
+    background: linear-gradient(#fff,#fcd34d);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  }
+
+  .flame {
+    position: absolute;
+    top: -24px;
+    left: -5px;
+    width: 22px;
+    height: 22px;
+    background: radial-gradient(circle, #fde68a, #f97316);
+    border-radius: 50%;
+    animation: flicker 0.4s infinite;
+  }
+
+  @keyframes flicker {
+    50% { transform: scale(1.15); opacity: 0.9; }
+  }
+
+  /* ENVELOPE */
+  .envelope {
+    position: absolute;
+    right: -90px;
+    top: 35px;
+    font-size: 64px;
+    cursor: pointer;
+    color: #f472b6;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    background-color: #fef3c7;
+  }
+
+  .envelope-hint {
+    position: absolute;
+    right: -130px;
+    top: 120px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+    background: rgba(255,255,255,0.7);
+    padding: 4px 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  /* MESSAGE MODAL */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+  }
+
+  .modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 22px;
+    width: 320px;
+    color: #374151;
+    text-align: center;
+  }
+
+  /* FALLING ELEMENTS */
+  .fall {
+    position: absolute;
+    top: -60px;
+    font-size: 32px;
+    opacity: 0.85;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    to { top: 110vh; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- START SCREEN -->
+<div class="start-screen" id="startScreen">
+  <button class="start-btn" onclick="startPage()">Click to Start ✨</button>
+</div>
+
+<h1>21</h1>
+<div class="subtitle">Happy Birthday 🤍</div>
+
+<div class="cake-wrap">
+  <div class="cake">
+    <div class="cake-name">06/01/2026</div>
+
+    <div class="candle">
+      <div class="flame"></div>
+    </div>
+
+    <div class="envelope" onclick="openMsg()">✉️</div>
+    <div class="envelope-hint">Click the envelope 💌</div>
+  </div>
+</div>
+
+<!-- MESSAGE -->
+<div class="modal" id="msgBox" onclick="closeMsg()">
+  <div class="modal-content">
+    <h3>💌 A Message for Visal</h3>
+    <p>
+      Happy 21st, buddy 🤍<br>
+      I truly hope your life will be filled with love and strength.<br>
+      May you be loved, blessed, and cherished. I am always thankful for having my back, buddy. 🎂💙
+    </p>
+  </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="birthdayAudio" src="your-song.mp3" preload="auto"></audio>
+
+<script>
+  const audio = document.getElementById('birthdayAudio');
+
+  function startPage() {
+    document.getElementById("startScreen").style.display = "none";
+    audio.play();
+  }
+
+  function openMsg() {
+    document.getElementById("msgBox").style.display = "flex";
+  }
+
+  function closeMsg() {
+    document.getElementById("msgBox").style.display = "none";
+  }
+
+  /* FALLING DECOR */
+  const items = ["⭐","🤍","🌸","🎂"];
+  for (let i = 0; i < 24; i++) {
+    const el = document.createElement("div");
+    el.className = "fall";
+    el.innerText = items[Math.floor(Math.random()*items.length)];
+    el.style.left =
+      (Math.random() < 0.5
+        ? Math.random()*18
+        : 82 + Math.random()*18) + "vw";
+    el.style.animationDuration = (11 + Math.random()*6) + "s";
+    document.body.appendChild(el);
+  }
+</script>
+
+</body>
+</html>
 
