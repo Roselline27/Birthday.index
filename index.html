@@ -44,26 +44,19 @@ h1 {
   background: linear-gradient(45deg, #fcd34d, #f87171, #60a5fa, #34d399);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shine 3s ease-in-out infinite alternate;
-}
-
-@keyframes shine {
-  from { background-position: 0% 50%; }
-  to { background-position: 100% 50%; }
 }
 
 .subtitle {
   font-size: 28px;
-  margin-bottom: 80px;
+  margin-bottom: 70px;
 }
 
-/* CAKE WRAP (FIXED + CLEAN) */
+/* CAKE WRAPPER */
 .cake-wrap {
   position: relative;
   margin: auto;
-  width: fit-content;
-  height: 240px;
-  overflow: hidden;
+  width: 220px;
+  height: 320px; /* space for candle + envelope */
 }
 
 /* CAKE */
@@ -71,16 +64,9 @@ h1 {
   position: relative;
   width: 220px;
   height: 140px;
-  margin: auto;
   background: linear-gradient(to bottom, #fcd5ce, #f9a8d4);
   border-radius: 30px 30px 15px 15px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-  animation: cakeBounce 4s ease-in-out infinite;
-}
-
-@keyframes cakeBounce {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
 }
 
 .cake::before {
@@ -105,17 +91,16 @@ h1 {
 /* CANDLE */
 .candle {
   position: absolute;
-  top: -55px;
+  top: -65px;
   left: 50%;
   transform: translateX(-50%);
   width: 14px;
   height: 60px;
-  background: linear-gradient(#fff,#fcd34d);
+  background: linear-gradient(#fff, #fcd34d);
   border-radius: 7px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
-/* SMOOTHER FLAME */
+/* FLAME */
 .flame {
   position: absolute;
   top: -26px;
@@ -124,45 +109,32 @@ h1 {
   height: 26px;
   background: radial-gradient(circle, #fde68a 30%, #f97316 70%);
   border-radius: 50%;
-  filter: blur(0.5px);
   box-shadow: 0 0 15px rgba(249,115,22,0.9);
-  animation: flameFlicker 0.35s infinite alternate;
+  animation: flicker 0.4s infinite alternate;
 }
 
-@keyframes flameFlicker {
-  from {
-    transform: scale(1) rotate(-2deg);
-    opacity: 0.85;
-  }
-  to {
-    transform: scale(1.15) rotate(2deg);
-    opacity: 1;
-  }
+@keyframes flicker {
+  from { transform: scale(1); opacity: 0.85; }
+  to { transform: scale(1.15); opacity: 1; }
 }
 
 /* ENVELOPE */
 .envelope {
   position: absolute;
-  top: 170px;
+  top: 185px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 64px;
   cursor: pointer;
-  color: #f472b6;
+  background: #fef3c7;
   padding: 10px;
   border-radius: 12px;
-  background: #fef3c7;
   box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-  transition: transform 0.2s ease;
-}
-
-.envelope:hover {
-  transform: translateX(-50%) scale(1.1);
 }
 
 .envelope-hint {
   position: absolute;
-  top: 240px;
+  top: 260px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 16px;
@@ -190,7 +162,7 @@ h1 {
   width: 320px;
 }
 
-/* FALLING ITEMS */
+/* FALLING ELEMENTS */
 .fall {
   position: absolute;
   top: -60px;
@@ -204,18 +176,12 @@ h1 {
   30% { opacity: 1; }
   100% { transform: translateY(110vh); opacity: 0; }
 }
-
-/* MOBILE */
-@media (max-width: 600px) {
-  h1 { font-size: 72px; }
-  .subtitle { font-size: 22px; }
-  .cake { transform: scale(0.9); }
-}
 </style>
 </head>
 
 <body>
 
+<!-- START SCREEN -->
 <div class="start-screen" id="startScreen">
   <button class="start-btn" onclick="startPage()">Click to Start ✨</button>
 </div>
@@ -235,6 +201,7 @@ h1 {
   <div class="envelope-hint">Click the envelope 💌</div>
 </div>
 
+<!-- MESSAGE MODAL -->
 <div class="modal" id="msgBox" onclick="closeMsg()">
   <div class="modal-content">
     <h3>💌 A Message for Visal</h3>
@@ -246,6 +213,7 @@ h1 {
   </div>
 </div>
 
+<!-- AUDIO -->
 <iframe id="ytAudio" width="0" height="0"
   src="https://www.youtube.com/embed/IlkyBZIdQDk?autoplay=1&loop=1&playlist=IlkyBZIdQDk"
   allow="autoplay">
@@ -264,6 +232,7 @@ function startPage() {
 function openMsg() { msgBox.style.display = "flex"; }
 function closeMsg() { msgBox.style.display = "none"; }
 
+/* FALLING ITEMS */
 const items = ["⭐","🤍","🌸","🎂"];
 for (let i = 0; i < 24; i++) {
   const el = document.createElement("div");
